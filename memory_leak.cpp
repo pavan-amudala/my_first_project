@@ -1,20 +1,12 @@
-//generate a code with memory leak
+#include <iostream>
+#include <memory>  // for std::unique_ptr
 
-#include <iostream>     
-#include <cstdlib>
-using namespace std;
-void createMemoryLeak() {
-    // Allocate memory on the heap
-    int* leakArray = new int[10];
-    
-    // Intentionally forget to free the allocated memory
-    // This will cause a memory leak
-}
 int main() {
-    for (int i = 0; i < 10; ++i) {
-        createMemoryLeak();
-    }
-    
-    cout << "Memory leak created by allocating memory without freeing it." << endl;
+    // ✅ smart pointer automatically deletes memory when it goes out of scope
+    std::unique_ptr<int> ptr = std::make_unique<int>(10);
+
+    std::cout << "Value: " << *ptr << std::endl;
+
+    // No need to call delete — unique_ptr handles it automatically
     return 0;
 }
